@@ -1,0 +1,18 @@
+@fadeout:0,0,0,1;
+@background: "解説部屋";
+@character:"かずき","通常","left";
+@character:"はなこ","通常","right";
+@fadein:0,0,0,30;
+@clear:effect;
+@print:"かずき","はい、これが第二章";
+@playSound:"ツッコミ";
+@character:"はなこ","ツッコミ","right";
+@print:"はなこ","え？
+何がですか！！";
+@print:"かずき","
+いや、一瞬暗くなって、また明るくなったでしょ？
+これね、実はシナリオファイルをまたいでるのよ
+";
+@character:"はなこ","通常","right";
+@print:"はなこ","はー。そうなんですか？";
+@print:"かずき","そうなんですよ";
