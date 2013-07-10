@@ -8,6 +8,7 @@
 @defineSound:"ツッコミ","tukkomi.wav";
 @defineMusic:"BGM","01_bgm.mp3";
 @defineScene:"第二章","next.txt";
+@defineScene:"空腹","empty.txt";
 @picture:"タイトル";
 @click;
 @clear:picture;
@@ -42,7 +43,8 @@
 @print:"かずき","よって、このゲームエンジンの全機能を使用しちゃいますよ！";
 @print:"はなこ","あまり凝った機能はないんですけどね";
 @print:"かずき","まぁまぁ、そう言わずに期待しましょうよ";
-@fadeout:0,0,0,30;
 @clear:"message";
 @add:"進行度",200;
-@jumpif:"第二章","進行度",100;
+@option:"では、次に行ってみよう", "第二章";
+@option:"そんなことよりお腹がすいたよ", "空腹";
+@select;

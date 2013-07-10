@@ -1,0 +1,15 @@
+@fadeout:0,0,0,1;
+@background: "解説部屋";
+@character:"かずき","通常","left";
+@character:"はなこ","通常","right";
+@fadein:0,0,0,30;
+@clear:effect;
+@print:"かずき","そんなことよりお腹がすいたよ";
+@playSound:"ツッコミ";
+@character:"はなこ","ツッコミ","right";
+@print:"はなこ","え？
+急に何ですか！！";
+@print:"かずき","いや、だってお腹がすいたんだもの。";
+@character:"はなこ","通常","right";
+@print:"はなこ","はー。そうなんですか？";
+@print:"かずき","そうなんですよ";

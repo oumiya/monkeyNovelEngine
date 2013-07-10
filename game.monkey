@@ -11,6 +11,7 @@ Import layer.personlayer
 Import layer.picturelayer
 Import layer.messagelayer
 Import layer.effectlayer
+Import layer.selectlayer
 
 Class GameEngine Extends App
 	Field bglayer:BgLayer
@@ -18,6 +19,7 @@ Class GameEngine Extends App
 	Field picturelayer:PictureLayer
 	Field messagelayer:MessageLayer
 	Field effectlayer:EffectLayer
+	Field selectlayer:SelectLayer
 	Field status:Int
 	Field ps:Parser
 	Field T:String
@@ -26,15 +28,15 @@ Class GameEngine Extends App
 	Field soundsMap:StringMap<Sound>
 	Field musicMap:StringMap<String>
 	Field sceneMap:StringMap<String>
-	Field optionList:List<OptionItem>
 
 	Method OnCreate()
-		SetUpdateRate 30
+		SetUpdateRate 60
 		Self.bglayer = New BgLayer()
 		Self.personlayer = New PersonLayer()
 		Self.picturelayer = New PictureLayer()
 		Self.messagelayer = New MessageLayer()
 		Self.effectlayer = New EffectLayer()
+		Self.selectlayer = New SelectLayer()
 		Self.status = 0
 		Self.ps = New Parser
 		Self.T = LoadString("start.txt")
@@ -43,7 +45,6 @@ Class GameEngine Extends App
 		Self.soundsMap = New StringMap<Sound>
 		Self.musicMap = New StringMap<String>
 		Self.sceneMap = New StringMap<String>
-		Self.optionList = New List<OptionItem>
 	End
 	
 	Method OnUpdate()
@@ -85,6 +86,20 @@ Class GameEngine Extends App
 			If TouchHit(0) > 0
 				status = 0
 			Endif
+		Elseif status = 3
+			' 選択肢待機モード
+			' クリックがあったら選択肢レイヤーに座標を渡して
+			' どの選択肢が選択されたか取得
+			If TouchHit(0) > 0
+				Local selectScene:String = Self.selectlayer.TouchEvent(TouchX(), TouchY())
+				If  selectScene <> ""
+					Self.selectlayer.Clear()
+					Self.ps = New Parser
+					Self.T = LoadString(Self.sceneMap.Get(selectScene))
+					Self.readCommand = 0
+					status = 0
+				Endif
+			Endif
 		Endif
 	End
 	
@@ -109,7 +124,8 @@ Class GameEngine Extends App
 		drawmode += picturelayer.Draw()
 		drawmode += messagelayer.Draw()
 		drawmode += effectlayer.Draw()
-		If status <> 2
+		drawmode += selectlayer.Draw()
+		If status < 2
 			If drawmode > 0
 				status = 1
 			Else
@@ -220,9 +236,10 @@ Class GameEngine Extends App
 		Elseif command = "click"
 			result = 2
 		Elseif command = "option"
-			Self.optionList.AddLast(New OptionItem(arg1, arg2))
+			Self.selectlayer.AppendOption(arg1, arg2)
+			result = 0
 		Elseif command = "select"
-			Self.optionList.Clear()
+			result = 3
 		Endif
 
 		Return result
