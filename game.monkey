@@ -104,20 +104,20 @@ Class GameEngine Extends App
 	End
 	
 	Method OnRender()
-'		Rescale()
-'		Local cwidth:Float = Float(GetCanvasWidth())
-'		Local cheight:Float = Float(GetCanvasHeight())
-'		Local scaling:Float
+		'Rescale()
+		'Local cwidth:Float = Float(GetCanvasWidth())
+		'Local cheight:Float = Float(GetCanvasHeight())
+		'Local scaling:Float
 
 		' 縦横比で、小さい方に合わせる
-'		If cwidth > cheight
-'			scaling = cheight / 600
-'		Else
-'			scaling = cwidth / 800
-'		Endif
+		'If cwidth > cheight
+		'	scaling = cheight / 600
+		'Else
+		'	scaling = cwidth / 800
+		'Endif
 		
-'		Scale scaling, scaling
-		SetCanvasFont "12pt ~qＭＳ Ｐゴシック~q"
+		'Scale scaling, scaling
+		SetCanvasFont "12pt ~qメイリオ~q"
 		Local drawmode:Int = 0
 		drawmode += bglayer.Draw()
 		drawmode += personlayer.Draw()

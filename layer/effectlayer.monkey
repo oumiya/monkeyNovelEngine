@@ -1,8 +1,6 @@
 Import mojo
 Import baselayer
 
-' TODO: SetEffectされた時にその色の画像つくって
-' あとはSetAlphaでDrawImageする様に修正すること。
 Class EffectLayer Extends BaseLayer
 
 	Field drawImage:Image '現在キャンバスに描画されている内容を読み込む
@@ -31,7 +29,7 @@ Class EffectLayer Extends BaseLayer
 		Self.effectName = effectName
 		Self.effectCount = 0
 		Self.effectCountLimit = effectSpeed
-		Self.effectAlpha = Ceil(255 / effectSpeed)
+		Self.effectAlpha = 1.0 / effectSpeed
 		Self.er = r
 		Self.eg = g
 		Self.eb = b
@@ -44,63 +42,41 @@ Class EffectLayer Extends BaseLayer
 		If isDraw = True
 			result = 1
 			If effectName = "fadeout"
-				If drawImage = Null
-					drawImage = CreateImage(width, height)
-					buf = New Int[width*height]
-				Endif
-				
 				effectCount += 1
+				
+				SetColor er, eg, eb
 				
 				If effectCount > effectCountLimit
 					result = 0
-					For Local i:Int = 0 To buf.Length - 1
-						buf[i] = ToARGB(er, eg, eb, 255)
-					Next
+					SetAlpha 1.0
 				Else
-					Local alpha:Int
-					alpha = effectCount * effectAlpha
-					If alpha > 255
-						alpha = 255
+					effectAlpha += effectAlpha
+					If effectAlpha > 1.00000
+						effectAlpha = 1.0					
 					Endif
-					
-					For Local i:Int = 0 To buf.Length - 1
-						buf[i] = ToARGB(er, eg, eb, alpha)
-					Next
+					SetAlpha effectAlpha
 				Endif
 				
-				drawImage.WritePixels(buf,0,0,width,height)
-
-				DrawImage drawImage, 0, 0
+				DrawRect 0, 0, width, height
 			Endif
 			
 			If effectName = "fadein"
-				If drawImage = Null
-					drawImage = CreateImage(width, height)
-					buf = New Int[width*height]
-				Endif
-				
 				effectCount += 1
+				
+				SetColor er, eg, eb
 				
 				If effectCount > effectCountLimit
 					result = 0
-					For Local i:Int = 0 To buf.Length - 1
-						buf[i] = ToARGB(er, eg, eb, 0)
-					Next
+					SetAlpha 0.0
 				Else
-					Local alpha:Int
-					alpha = 255 - (effectCount * effectAlpha)
-					If alpha < 0
-						alpha = 0
+					effectAlpha += effectAlpha
+					If effectAlpha > 1.00000
+						effectAlpha = 1.0					
 					Endif
-					
-					For Local i:Int = 0 To buf.Length - 1
-						buf[i] = ToARGB(er, eg, eb, alpha)
-					Next
+					SetAlpha(1.0 - effectAlpha)
 				Endif
 				
-				drawImage.WritePixels(buf,0,0,width,height)
-
-				DrawImage drawImage, 0, 0
+				DrawRect 0, 0, width, height
 			Endif
 		Else
 			result = 0

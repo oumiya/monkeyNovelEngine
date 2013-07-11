@@ -13,11 +13,11 @@
 @click;
 @clear:picture;
 @playMusic:"BGM";
-@fadeout:0,0,0,30;
+@fadeout:0,0,0,60;
 @background: "解説部屋";
 @character:"かずき","通常","left";
 @character:"はなこ","通常","right";
-@fadein:0,0,0,30;
+@fadein:0,0,0,60;
 @clear:effect;
 @print:"かずき","というわけで、サンプルなんですけどね";
 @playSound:"ツッコミ";
@@ -43,6 +43,7 @@
 @print:"かずき","よって、このゲームエンジンの全機能を使用しちゃいますよ！";
 @print:"はなこ","あまり凝った機能はないんですけどね";
 @print:"かずき","まぁまぁ、そう言わずに期待しましょうよ";
+@print:"かずき","とりあえず、選択肢でも表示してみましょうか";
 @clear:"message";
 @add:"進行度",200;
 @option:"では、次に行ってみよう", "第二章";
